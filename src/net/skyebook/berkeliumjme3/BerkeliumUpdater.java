@@ -250,7 +250,6 @@ public class BerkeliumUpdater implements AppState {
 		inputManager.addMapping("KEY_M",				new KeyTrigger(KeyInput.KEY_M));
 		inputManager.addMapping("KEY_MINUS",			new KeyTrigger(KeyInput.KEY_MINUS));
 		inputManager.addMapping("KEY_MULTIPLY",			new KeyTrigger(KeyInput.KEY_MULTIPLY));
-		inputManager.addMapping("KEY_M",				new KeyTrigger(KeyInput.KEY_M));
 		inputManager.addMapping("KEY_N",				new KeyTrigger(KeyInput.KEY_N));
 		inputManager.addMapping("KEY_NEXT",				new KeyTrigger(KeyInput.KEY_NEXT));
 		inputManager.addMapping("KEY_NOCONVERT",		new KeyTrigger(KeyInput.KEY_NOCONVERT));
