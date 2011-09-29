@@ -71,7 +71,7 @@ public class BerkeliumUpdater implements AppState {
 		jmeImage = new Image(Format.RGBA8, width, height, jmeImageBuffer);
 		targetTexture = new Texture2D(jmeImage);
 
-		//targetTexture.setKey(new TextureKey("", false));
+		//targetTexture.setKey(new TextureKey("", true));
 
 		for(BerkeliumInterfaceCallback callback : callbacks){
 			callback.textureCreated(targetTexture);
@@ -96,8 +96,10 @@ public class BerkeliumUpdater implements AppState {
 			int[] buffer = ((DataBufferInt)data).getData();
 
 			//int x=0; x<buffer.length/width; x++
+
 			for(int y=0; y<buffer.length/height; y++){
 				for(int x=0; x<buffer.length/width; x++){
+
 
 					int val = buffer[(y*height) + x];
 					// unpack bytes from the buffer
@@ -167,6 +169,7 @@ public class BerkeliumUpdater implements AppState {
 		jmeImageBuffer = convertToByteBuffer(imageAdaper.getImage().getData().getDataBuffer(), jmeImageBuffer);
 		jmeImage = new Image(Format.RGBA8, width, height, jmeImageBuffer);
 		targetTexture.setImage(jmeImage);
+		//targetTexture.setKey(new TextureKey("", true));
 	}
 
 	/* (non-Javadoc)
