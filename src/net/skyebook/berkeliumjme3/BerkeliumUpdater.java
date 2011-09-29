@@ -1,6 +1,8 @@
 package net.skyebook.berkeliumjme3;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import org.berkelium.java.Berkelium;
 import org.berkelium.java.BufferedImageAdapter;
@@ -35,6 +37,10 @@ public class BerkeliumUpdater implements AppState {
 	private AWTLoader loader;
 
 	private ArrayList<BerkeliumInterfaceCallback> callbacks;
+	
+	private boolean killTrigger = false;
+	
+	private Executor thread = Executors.newFixedThreadPool(1);
 
 	/**
 	 * 
@@ -65,6 +71,7 @@ public class BerkeliumUpdater implements AppState {
 		window.navigateTo("http://google.com");
 
 		berk.update();
+		
 
 		jmeImage = loader.load(imageAdaper.getImage(), true);
 		targetTexture = new Texture2D(jmeImage);
@@ -72,6 +79,23 @@ public class BerkeliumUpdater implements AppState {
 		for(BerkeliumInterfaceCallback callback : callbacks){
 			callback.textureCreated(targetTexture);
 		}
+		
+		thread.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(!killTrigger){
+					try {
+						Thread.sleep(10);
+						jmeImage = loader.load(imageAdaper.getImage(), true);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+			}
+		});
 
 		initialized = true;
 	}
@@ -149,6 +173,6 @@ public class BerkeliumUpdater implements AppState {
 	 */
 	@Override
 	public void cleanup() {
-		// nothing to see here
+		killTrigger=true;
 	}
 }
