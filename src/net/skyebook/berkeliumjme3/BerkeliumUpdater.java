@@ -115,8 +115,8 @@ public class BerkeliumUpdater implements AppState {
 	}
 
 	private void inputSetup(){
-		// mouse setup
 
+		/*============================== Mouse Setup ==============================*/
 		inputManager.addMapping("rightClick", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
 		inputManager.addMapping("leftClick", new MouseButtonTrigger(MouseInput.BUTTON_RIGHT));
 		inputManager.addMapping("middleClick", new MouseButtonTrigger(MouseInput.BUTTON_MIDDLE));
@@ -176,6 +176,153 @@ public class BerkeliumUpdater implements AppState {
 				window.mouseWheel(0, (int)value);
 			}
 		}, "mouseWheelMovement");
+		
+		
+		
+		/*============================== Keyboard Setup ==============================*/
+		inputManager.addMapping("KEY_0",				new KeyTrigger(KeyInput.KEY_0));
+		inputManager.addMapping("KEY_1",				new KeyTrigger(KeyInput.KEY_1));
+		inputManager.addMapping("KEY_2",				new KeyTrigger(KeyInput.KEY_2));
+		inputManager.addMapping("KEY_3",				new KeyTrigger(KeyInput.KEY_3));
+		inputManager.addMapping("KEY_4",				new KeyTrigger(KeyInput.KEY_4));
+		inputManager.addMapping("KEY_5",				new KeyTrigger(KeyInput.KEY_5));
+		inputManager.addMapping("KEY_6",				new KeyTrigger(KeyInput.KEY_6));
+		inputManager.addMapping("KEY_7",				new KeyTrigger(KeyInput.KEY_7));
+		inputManager.addMapping("KEY_8",				new KeyTrigger(KeyInput.KEY_8));
+		inputManager.addMapping("KEY_9",				new KeyTrigger(KeyInput.KEY_9));
+		inputManager.addMapping("KEY_A",				new KeyTrigger(KeyInput.KEY_A));
+		inputManager.addMapping("KEY_ADD",				new KeyTrigger(KeyInput.KEY_ADD));
+		inputManager.addMapping("KEY_APOSTROPHE",		new KeyTrigger(KeyInput.KEY_APOSTROPHE));
+		inputManager.addMapping("KEY_APPS",				new KeyTrigger(KeyInput.KEY_APPS));
+		inputManager.addMapping("KEY_AT",				new KeyTrigger(KeyInput.KEY_AT));
+		inputManager.addMapping("KEY_AX",				new KeyTrigger(KeyInput.KEY_AX));
+		inputManager.addMapping("KEY_B",				new KeyTrigger(KeyInput.KEY_B));
+		inputManager.addMapping("KEY_BACK",				new KeyTrigger(KeyInput.KEY_BACK));
+		inputManager.addMapping("KEY_BACKSLASH",		new KeyTrigger(KeyInput.KEY_BACKSLASH));
+		inputManager.addMapping("KEY_C",				new KeyTrigger(KeyInput.KEY_C));
+		inputManager.addMapping("KEY_CAPITAL",			new KeyTrigger(KeyInput.KEY_CAPITAL));
+		inputManager.addMapping("KEY_CIRCUMFLEX",		new KeyTrigger(KeyInput.KEY_CIRCUMFLEX));
+		inputManager.addMapping("KEY_COLON",			new KeyTrigger(KeyInput.KEY_COLON));
+		inputManager.addMapping("KEY_COMMA",			new KeyTrigger(KeyInput.KEY_COMMA));
+		inputManager.addMapping("KEY_CONVERT",			new KeyTrigger(KeyInput.KEY_CONVERT));
+		inputManager.addMapping("KEY_D",				new KeyTrigger(KeyInput.KEY_D));
+		inputManager.addMapping("KEY_DECIMAL",			new KeyTrigger(KeyInput.KEY_DECIMAL));
+		inputManager.addMapping("KEY_DELETE",			new KeyTrigger(KeyInput.KEY_DELETE));
+		inputManager.addMapping("KEY_DIVIDE",			new KeyTrigger(KeyInput.KEY_DIVIDE));
+		inputManager.addMapping("KEY_DOWN",				new KeyTrigger(KeyInput.KEY_DOWN));
+		inputManager.addMapping("KEY_E",				new KeyTrigger(KeyInput.KEY_E));
+		inputManager.addMapping("KEY_END",				new KeyTrigger(KeyInput.KEY_END));
+		inputManager.addMapping("KEY_EQUALS",			new KeyTrigger(KeyInput.KEY_EQUALS));
+		inputManager.addMapping("KEY_ESCAPE",			new KeyTrigger(KeyInput.KEY_ESCAPE));
+		inputManager.addMapping("KEY_F",				new KeyTrigger(KeyInput.KEY_F));
+		inputManager.addMapping("KEY_F1",				new KeyTrigger(KeyInput.KEY_F1));
+		inputManager.addMapping("KEY_F2",				new KeyTrigger(KeyInput.KEY_F2));
+		inputManager.addMapping("KEY_F3",				new KeyTrigger(KeyInput.KEY_F3));
+		inputManager.addMapping("KEY_F4",				new KeyTrigger(KeyInput.KEY_F4));
+		inputManager.addMapping("KEY_F5",				new KeyTrigger(KeyInput.KEY_F5));
+		inputManager.addMapping("KEY_F6",				new KeyTrigger(KeyInput.KEY_F6));
+		inputManager.addMapping("KEY_F7",				new KeyTrigger(KeyInput.KEY_F7));
+		inputManager.addMapping("KEY_F8",				new KeyTrigger(KeyInput.KEY_F8));
+		inputManager.addMapping("KEY_F9",				new KeyTrigger(KeyInput.KEY_F9));
+		inputManager.addMapping("KEY_F10",				new KeyTrigger(KeyInput.KEY_F10));
+		inputManager.addMapping("KEY_F11",				new KeyTrigger(KeyInput.KEY_F11));
+		inputManager.addMapping("KEY_F12",				new KeyTrigger(KeyInput.KEY_F12));
+		inputManager.addMapping("KEY_F13",				new KeyTrigger(KeyInput.KEY_F13));
+		inputManager.addMapping("KEY_F14",				new KeyTrigger(KeyInput.KEY_F14));
+		inputManager.addMapping("KEY_F15",				new KeyTrigger(KeyInput.KEY_F15));
+		inputManager.addMapping("KEY_G",				new KeyTrigger(KeyInput.KEY_G));
+		inputManager.addMapping("KEY_GRAVE",			new KeyTrigger(KeyInput.KEY_GRAVE));
+		inputManager.addMapping("KEY_H",				new KeyTrigger(KeyInput.KEY_H));
+		inputManager.addMapping("KEY_HOME",				new KeyTrigger(KeyInput.KEY_HOME));
+		inputManager.addMapping("KEY_I",				new KeyTrigger(KeyInput.KEY_I));
+		inputManager.addMapping("KEY_INSERT",			new KeyTrigger(KeyInput.KEY_INSERT));
+		inputManager.addMapping("KEY_J",				new KeyTrigger(KeyInput.KEY_J));
+		inputManager.addMapping("KEY_K",				new KeyTrigger(KeyInput.KEY_K));
+		inputManager.addMapping("KEY_KANA",				new KeyTrigger(KeyInput.KEY_KANA));
+		inputManager.addMapping("KEY_KANJI",			new KeyTrigger(KeyInput.KEY_KANJI));
+		inputManager.addMapping("KEY_L",				new KeyTrigger(KeyInput.KEY_L));
+		inputManager.addMapping("KEY_LBRACKET",			new KeyTrigger(KeyInput.KEY_LBRACKET));
+		inputManager.addMapping("KEY_LCONTROL",			new KeyTrigger(KeyInput.KEY_LCONTROL));
+		inputManager.addMapping("KEY_LEFT",				new KeyTrigger(KeyInput.KEY_LEFT));
+		inputManager.addMapping("KEY_LMENU",			new KeyTrigger(KeyInput.KEY_LMENU));
+		inputManager.addMapping("KEY_LMETA",			new KeyTrigger(KeyInput.KEY_LMETA));
+		inputManager.addMapping("KEY_LSHIFT",			new KeyTrigger(KeyInput.KEY_LSHIFT));
+		inputManager.addMapping("KEY_M",				new KeyTrigger(KeyInput.KEY_M));
+		inputManager.addMapping("KEY_MINUS",			new KeyTrigger(KeyInput.KEY_MINUS));
+		inputManager.addMapping("KEY_MULTIPLY",			new KeyTrigger(KeyInput.KEY_MULTIPLY));
+		inputManager.addMapping("KEY_M",				new KeyTrigger(KeyInput.KEY_M));
+		inputManager.addMapping("KEY_N",				new KeyTrigger(KeyInput.KEY_N));
+		inputManager.addMapping("KEY_NEXT",				new KeyTrigger(KeyInput.KEY_NEXT));
+		inputManager.addMapping("KEY_NOCONVERT",		new KeyTrigger(KeyInput.KEY_NOCONVERT));
+		inputManager.addMapping("KEY_NUMLOCK",			new KeyTrigger(KeyInput.KEY_NUMLOCK));
+		inputManager.addMapping("KEY_NUMPAD0",			new KeyTrigger(KeyInput.KEY_NUMPAD0));
+		inputManager.addMapping("KEY_NUMPAD1",			new KeyTrigger(KeyInput.KEY_NUMPAD1));
+		inputManager.addMapping("KEY_NUMPAD2",			new KeyTrigger(KeyInput.KEY_NUMPAD2));
+		inputManager.addMapping("KEY_NUMPAD3",			new KeyTrigger(KeyInput.KEY_NUMPAD3));
+		inputManager.addMapping("KEY_NUMPAD4",			new KeyTrigger(KeyInput.KEY_NUMPAD4));
+		inputManager.addMapping("KEY_NUMPAD5",			new KeyTrigger(KeyInput.KEY_NUMPAD5));
+		inputManager.addMapping("KEY_NUMPAD6",			new KeyTrigger(KeyInput.KEY_NUMPAD6));
+		inputManager.addMapping("KEY_NUMPAD7",			new KeyTrigger(KeyInput.KEY_NUMPAD7));
+		inputManager.addMapping("KEY_NUMPAD8",			new KeyTrigger(KeyInput.KEY_NUMPAD8));
+		inputManager.addMapping("KEY_NUMPAD9",			new KeyTrigger(KeyInput.KEY_NUMPAD9));
+		inputManager.addMapping("KEY_NUMPADCOMMA",		new KeyTrigger(KeyInput.KEY_NUMPADCOMMA));
+		inputManager.addMapping("KEY_NUMPADENTER",		new KeyTrigger(KeyInput.KEY_NUMPADENTER));
+		inputManager.addMapping("KEY_NUMPADEQUALS",		new KeyTrigger(KeyInput.KEY_NUMPADEQUALS));
+		inputManager.addMapping("KEY_O",				new KeyTrigger(KeyInput.KEY_O));
+		inputManager.addMapping("KEY_P",				new KeyTrigger(KeyInput.KEY_P));
+		inputManager.addMapping("KEY_PAUSE",			new KeyTrigger(KeyInput.KEY_PAUSE));
+		inputManager.addMapping("KEY_PERIOD",			new KeyTrigger(KeyInput.KEY_PERIOD));
+		inputManager.addMapping("KEY_PGDN",				new KeyTrigger(KeyInput.KEY_PGDN));
+		inputManager.addMapping("KEY_PGUP",				new KeyTrigger(KeyInput.KEY_PGUP));
+		inputManager.addMapping("KEY_POWER",			new KeyTrigger(KeyInput.KEY_POWER));
+		inputManager.addMapping("KEY_PRIOR",			new KeyTrigger(KeyInput.KEY_PRIOR));
+		inputManager.addMapping("KEY_Q",				new KeyTrigger(KeyInput.KEY_Q));
+		inputManager.addMapping("KEY_R",				new KeyTrigger(KeyInput.KEY_R));
+		inputManager.addMapping("KEY_RBRACKET",			new KeyTrigger(KeyInput.KEY_RBRACKET));
+		inputManager.addMapping("KEY_RCONTROL",			new KeyTrigger(KeyInput.KEY_RCONTROL));
+		inputManager.addMapping("KEY_RETURN",			new KeyTrigger(KeyInput.KEY_RETURN));
+		inputManager.addMapping("KEY_RIGHT",			new KeyTrigger(KeyInput.KEY_RIGHT));
+		inputManager.addMapping("KEY_RMENU",			new KeyTrigger(KeyInput.KEY_RMENU));
+		inputManager.addMapping("KEY_RMETA",			new KeyTrigger(KeyInput.KEY_RMETA));
+		inputManager.addMapping("KEY_RSHIFT",			new KeyTrigger(KeyInput.KEY_RSHIFT));
+		inputManager.addMapping("KEY_S",				new KeyTrigger(KeyInput.KEY_S));
+		inputManager.addMapping("KEY_SCROLL",			new KeyTrigger(KeyInput.KEY_SCROLL));
+		inputManager.addMapping("KEY_SEMICOLON",		new KeyTrigger(KeyInput.KEY_SEMICOLON));
+		inputManager.addMapping("KEY_SLASH",			new KeyTrigger(KeyInput.KEY_SLASH));
+		inputManager.addMapping("KEY_SLEEP",			new KeyTrigger(KeyInput.KEY_SLEEP));
+		inputManager.addMapping("KEY_SPACE",			new KeyTrigger(KeyInput.KEY_SPACE));
+		inputManager.addMapping("KEY_STOP",				new KeyTrigger(KeyInput.KEY_STOP));
+		inputManager.addMapping("KEY_SUBTRACT",			new KeyTrigger(KeyInput.KEY_SUBTRACT));
+		inputManager.addMapping("KEY_SYSRQ",			new KeyTrigger(KeyInput.KEY_SYSRQ));
+		inputManager.addMapping("KEY_T",				new KeyTrigger(KeyInput.KEY_T));
+		inputManager.addMapping("KEY_TAB",				new KeyTrigger(KeyInput.KEY_TAB));
+		inputManager.addMapping("KEY_U",				new KeyTrigger(KeyInput.KEY_U));
+		inputManager.addMapping("KEY_UNDERLINE",		new KeyTrigger(KeyInput.KEY_UNDERLINE));
+		inputManager.addMapping("KEY_UNLABELED",		new KeyTrigger(KeyInput.KEY_UNLABELED));
+		inputManager.addMapping("KEY_UP",				new KeyTrigger(KeyInput.KEY_UP));
+		inputManager.addMapping("KEY_V",				new KeyTrigger(KeyInput.KEY_V));
+		inputManager.addMapping("KEY_W",				new KeyTrigger(KeyInput.KEY_W));
+		inputManager.addMapping("KEY_X",				new KeyTrigger(KeyInput.KEY_X));
+		inputManager.addMapping("KEY_Y",				new KeyTrigger(KeyInput.KEY_Y));
+		inputManager.addMapping("KEY_YEN",				new KeyTrigger(KeyInput.KEY_YEN));
+		inputManager.addMapping("KEY_Z",				new KeyTrigger(KeyInput.KEY_Z));
+	}
+	
+	private class KeyListener implements ActionListener{
+		
+		private int keyCode;
+		
+		private KeyListener(int keyCode){
+			this.keyCode=keyCode;
+		}
+
+		/* (non-Javadoc)
+		 * @see com.jme3.input.controls.ActionListener#onAction(java.lang.String, boolean, float)
+		 */
+		@Override
+		public void onAction(String name, boolean isPressed, float tpf) {
+			window.keyEvent(isPressed, 0, keyCode, 0);
+		}
 		
 	}
 
