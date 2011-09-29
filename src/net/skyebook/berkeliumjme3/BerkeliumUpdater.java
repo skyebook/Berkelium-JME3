@@ -1,8 +1,5 @@
 package net.skyebook.berkeliumjme3;
 
-import java.awt.image.DataBuffer;
-import java.awt.image.DataBufferInt;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import org.berkelium.java.Berkelium;
@@ -12,12 +9,11 @@ import org.berkelium.java.Window;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.asset.TextureKey;
 import com.jme3.renderer.RenderManager;
 import com.jme3.texture.Image;
-import com.jme3.texture.Image.Format;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
+import com.jme3.texture.plugins.AWTLoader;
 
 /**
  * @author Skye Book
@@ -25,6 +21,7 @@ import com.jme3.texture.Texture2D;
  */
 public class BerkeliumUpdater implements AppState {
 	private boolean initialized = false;
+	private boolean enabled = true;
 
 	private Berkelium berk;
 	private BufferedImageAdapter imageAdaper;
@@ -33,8 +30,9 @@ public class BerkeliumUpdater implements AppState {
 	private int width;
 	private int height;
 
-	private ByteBuffer jmeImageBuffer;
 	private Image jmeImage;
+
+	private AWTLoader loader;
 
 	private ArrayList<BerkeliumInterfaceCallback> callbacks;
 
@@ -45,6 +43,7 @@ public class BerkeliumUpdater implements AppState {
 		this.width = width;
 		this.height = height;
 		callbacks = new ArrayList<BerkeliumInterfaceCallback>();
+		loader = new AWTLoader();
 	}
 
 	public void addCallback(BerkeliumInterfaceCallback callback){
@@ -67,52 +66,14 @@ public class BerkeliumUpdater implements AppState {
 
 		berk.update();
 
-		jmeImageBuffer = convertToByteBuffer(imageAdaper.getImage().getData().getDataBuffer(), null);
-		jmeImage = new Image(Format.RGBA8, width, height, jmeImageBuffer);
+		jmeImage = loader.load(imageAdaper.getImage(), true);
 		targetTexture = new Texture2D(jmeImage);
-
-		//targetTexture.setKey(new TextureKey("", true));
 
 		for(BerkeliumInterfaceCallback callback : callbacks){
 			callback.textureCreated(targetTexture);
 		}
 
 		initialized = true;
-	}
-
-	private ByteBuffer convertToByteBuffer(DataBuffer data, ByteBuffer target){
-
-		// check to ensure that we have the buffer and that it is the correct size
-		int properCapacity = 4*4*imageAdaper.getImage().getWidth()*imageAdaper.getImage().getHeight();
-		if(target==null || target.capacity()!=properCapacity){
-			System.out.println("BUFFER NULL OR INCORRECTLY SIZED");
-			target = ByteBuffer.allocateDirect(properCapacity);
-		}
-
-		// clear all data from the buffer
-		target.clear();
-
-		if(data instanceof DataBufferInt){
-			int[] buffer = ((DataBufferInt)data).getData();
-
-			//int x=0; x<buffer.length/width; x++
-
-			for(int y=0; y<buffer.length/height; y++){
-				for(int x=0; x<buffer.length/width; x++){
-
-
-					int val = buffer[(y*height) + x];
-					// unpack bytes from the buffer
-					for(int j=0; j<4; j++){
-						target.put((byte)val);
-						val >>= 8;
-					}
-				}
-			}
-		}
-
-
-		return target;
 	}
 
 	/* (non-Javadoc)
@@ -129,8 +90,7 @@ public class BerkeliumUpdater implements AppState {
 	 */
 	@Override
 	public void setEnabled(boolean active) {
-		// TODO Auto-generated method stub
-
+		enabled = active;
 	}
 
 	/* (non-Javadoc)
@@ -138,7 +98,7 @@ public class BerkeliumUpdater implements AppState {
 	 */
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return enabled;
 	}
 
 	/* (non-Javadoc)
@@ -146,8 +106,7 @@ public class BerkeliumUpdater implements AppState {
 	 */
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
-		// TODO Auto-generated method stub
-
+		// nothing to see here
 	}
 
 	/* (non-Javadoc)
@@ -155,8 +114,7 @@ public class BerkeliumUpdater implements AppState {
 	 */
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
-		// TODO Auto-generated method stub
-
+		// nothing to see here
 	}
 
 	/* (non-Javadoc)
@@ -166,10 +124,8 @@ public class BerkeliumUpdater implements AppState {
 	public void update(float tpf) {
 		berk.update();
 
-		jmeImageBuffer = convertToByteBuffer(imageAdaper.getImage().getData().getDataBuffer(), jmeImageBuffer);
-		jmeImage = new Image(Format.RGBA8, width, height, jmeImageBuffer);
+		jmeImage = loader.load(imageAdaper.getImage(), true);
 		targetTexture.setImage(jmeImage);
-		//targetTexture.setKey(new TextureKey("", true));
 	}
 
 	/* (non-Javadoc)
@@ -177,8 +133,7 @@ public class BerkeliumUpdater implements AppState {
 	 */
 	@Override
 	public void render(RenderManager rm) {
-		// TODO Auto-generated method stub
-
+		// nothing to see here
 	}
 
 	/* (non-Javadoc)
@@ -186,8 +141,7 @@ public class BerkeliumUpdater implements AppState {
 	 */
 	@Override
 	public void postRender() {
-		// TODO Auto-generated method stub
-
+		// nothing to see here
 	}
 
 	/* (non-Javadoc)
@@ -195,8 +149,6 @@ public class BerkeliumUpdater implements AppState {
 	 */
 	@Override
 	public void cleanup() {
-		// TODO Auto-generated method stub
-
+		// nothing to see here
 	}
-
 }
