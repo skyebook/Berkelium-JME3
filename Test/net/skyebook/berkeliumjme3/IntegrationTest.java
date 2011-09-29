@@ -4,6 +4,7 @@
 package net.skyebook.berkeliumjme3;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.input.KeyInput;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
@@ -37,7 +38,7 @@ public class IntegrationTest extends SimpleApplication {
 		boxGeometry.setMaterial(mat);
 		rootNode.attachChild(boxGeometry);
 		
-		berkeliumState = new BerkeliumUpdater(640, 480);
+		berkeliumState = new BerkeliumUpdater(inputManager, 640, 480);
 		berkeliumState.addCallback(new BerkeliumInterfaceCallback() {
 			
 			@Override
@@ -47,6 +48,7 @@ public class IntegrationTest extends SimpleApplication {
 		});
 		
 		stateManager.attach(berkeliumState);
+		mouseInput.setCursorVisible(true);
 	}
 	
 	@Override

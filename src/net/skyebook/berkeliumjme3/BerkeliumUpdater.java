@@ -11,6 +11,15 @@ import org.berkelium.java.Window;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppState;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.input.InputManager;
+import com.jme3.input.KeyInput;
+import com.jme3.input.MouseInput;
+import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.AnalogListener;
+import com.jme3.input.controls.InputListener;
+import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.MouseAxisTrigger;
+import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.renderer.RenderManager;
 import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
@@ -37,15 +46,18 @@ public class BerkeliumUpdater implements AppState {
 	private AWTLoader loader;
 
 	private ArrayList<BerkeliumInterfaceCallback> callbacks;
-	
+
 	private boolean killTrigger = false;
-	
+
 	private Executor thread = Executors.newFixedThreadPool(1);
+
+	private InputManager inputManager;
 
 	/**
 	 * 
 	 */
-	public BerkeliumUpdater(int width, int height) {
+	public BerkeliumUpdater(InputManager inputManager, int width, int height) {
+		this.inputManager = inputManager;
 		this.width = width;
 		this.height = height;
 		callbacks = new ArrayList<BerkeliumInterfaceCallback>();
@@ -70,8 +82,10 @@ public class BerkeliumUpdater implements AppState {
 		window.resize(width, height);
 		window.navigateTo("http://google.com");
 
+		inputSetup();
+
 		berk.update();
-		
+
 
 		jmeImage = loader.load(imageAdaper.getImage(), true);
 		targetTexture = new Texture2D(jmeImage);
@@ -79,9 +93,9 @@ public class BerkeliumUpdater implements AppState {
 		for(BerkeliumInterfaceCallback callback : callbacks){
 			callback.textureCreated(targetTexture);
 		}
-		
+
 		thread.execute(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				while(!killTrigger){
@@ -92,12 +106,77 @@ public class BerkeliumUpdater implements AppState {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
+
 				}
 			}
 		});
 
 		initialized = true;
+	}
+
+	private void inputSetup(){
+		// mouse setup
+
+		inputManager.addMapping("rightClick", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
+		inputManager.addMapping("leftClick", new MouseButtonTrigger(MouseInput.BUTTON_RIGHT));
+		inputManager.addMapping("middleClick", new MouseButtonTrigger(MouseInput.BUTTON_MIDDLE));
+
+
+		inputManager.addListener(new ActionListener() {
+
+			@Override
+			public void onAction(String name, boolean isPressed, float tpf) {
+				window.mouseButton(0, isPressed);
+			}
+
+		}, "leftClick");
+
+		inputManager.addListener(new ActionListener() {
+
+			@Override
+			public void onAction(String name, boolean isPressed, float tpf) {
+				window.mouseButton(1, isPressed);
+			}
+
+		}, "rightClick");
+
+		inputManager.addListener(new ActionListener() {
+
+			@Override
+			public void onAction(String name, boolean isPressed, float tpf) {
+				window.mouseButton(1, isPressed);
+			}
+
+		}, "middleClick");
+		
+		inputManager.addMapping("mouseXMovement", new MouseAxisTrigger(MouseInput.AXIS_X, true));
+		inputManager.addMapping("mouseYMovement", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
+		inputManager.addMapping("mouseWheelMovement", new MouseAxisTrigger(MouseInput.AXIS_WHEEL, true));
+		
+		inputManager.addListener(new AnalogListener() {
+			
+			@Override
+			public void onAnalog(String name, float value, float tpf) {
+				window.mouseMoved((int)inputManager.getCursorPosition().getX(), (int)inputManager.getCursorPosition().getY());
+			}
+		}, "mouseXMovement");
+		
+		inputManager.addListener(new AnalogListener() {
+			
+			@Override
+			public void onAnalog(String name, float value, float tpf) {
+				window.mouseMoved((int)inputManager.getCursorPosition().getX(), (int)inputManager.getCursorPosition().getY());
+			}
+		}, "mouseYMovement");
+		
+		inputManager.addListener(new AnalogListener() {
+			
+			@Override
+			public void onAnalog(String name, float value, float tpf) {
+				window.mouseWheel(0, (int)value);
+			}
+		}, "mouseWheelMovement");
+		
 	}
 
 	/* (non-Javadoc)
