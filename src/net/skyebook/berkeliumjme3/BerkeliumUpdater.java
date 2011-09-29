@@ -148,7 +148,6 @@ public class BerkeliumUpdater implements AppState {
 	public void update(float tpf) {
 		berk.update();
 
-		jmeImage = loader.load(imageAdaper.getImage(), true);
 		targetTexture.setImage(jmeImage);
 	}
 
