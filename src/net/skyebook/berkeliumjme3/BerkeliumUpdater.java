@@ -2,6 +2,7 @@ package net.skyebook.berkeliumjme3;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.berkelium.java.Berkelium;
@@ -48,7 +49,7 @@ public class BerkeliumUpdater implements AppState {
 
 	private boolean killTrigger = false;
 
-	private Executor thread = Executors.newFixedThreadPool(1);
+	private ExecutorService thread = Executors.newFixedThreadPool(1);
 
 	private InputManager inputManager;
 
@@ -609,6 +610,7 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_F15:
 				break;
 			case KeyInput.KEY_G:
+				character="g";
 				return 47;
 			case KeyInput.KEY_GRAVE:
 				break;
@@ -646,7 +648,7 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_LMETA:
 				break;
 			case KeyInput.KEY_LSHIFT:
-				break;
+				return 10;
 			case KeyInput.KEY_M:
 				character="m";
 				return 0x4D;
@@ -714,7 +716,7 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_RCONTROL:
 				break;
 			case KeyInput.KEY_RETURN:
-				break;
+				return 0x0D;
 			case KeyInput.KEY_RIGHT:
 				break;
 			case KeyInput.KEY_RMENU:
@@ -722,7 +724,7 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_RMETA:
 				break;
 			case KeyInput.KEY_RSHIFT:
-				break;
+				return 10;
 			case KeyInput.KEY_S:
 				character="s";
 				return 53;
@@ -747,7 +749,7 @@ public class BerkeliumUpdater implements AppState {
 				character="t";
 				return 54;
 			case KeyInput.KEY_TAB:
-				break;
+				return 9;
 			case KeyInput.KEY_U:
 				character="u";
 				return 55;
@@ -786,8 +788,7 @@ public class BerkeliumUpdater implements AppState {
 			System.out.println(name + (isPressed?" pressed":" released"));
 
 			if(isEligibleForTextEvent){
-				System.out.println("do event");
-				window.textEvent(character);
+				if(isPressed) window.textEvent(character);
 			}
 			else{
 				window.keyEvent(isPressed, 0, keyCode, 0);
@@ -870,5 +871,6 @@ public class BerkeliumUpdater implements AppState {
 	@Override
 	public void cleanup() {
 		killTrigger=true;
+		thread.shutdown();
 	}
 }
