@@ -1,7 +1,6 @@
 package net.skyebook.berkeliumjme3;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -152,13 +151,14 @@ public class BerkeliumUpdater implements AppState {
 
 		inputManager.addMapping("mouseXMovement", new MouseAxisTrigger(MouseInput.AXIS_X, true));
 		inputManager.addMapping("mouseYMovement", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
-		inputManager.addMapping("mouseWheelMovement", new MouseAxisTrigger(MouseInput.AXIS_WHEEL, true));
+		inputManager.addMapping("mouseWheelUpMovement", new MouseAxisTrigger(MouseInput.AXIS_WHEEL, false));
+		inputManager.addMapping("mouseWheelDownMovement", new MouseAxisTrigger(MouseInput.AXIS_WHEEL, true));
 
 		inputManager.addListener(new AnalogListener() {
 
 			@Override
 			public void onAnalog(String name, float value, float tpf) {
-				window.mouseMoved((int)inputManager.getCursorPosition().getX(), (int)inputManager.getCursorPosition().getY());
+				window.mouseMoved((int)inputManager.getCursorPosition().getX(), height-(int)inputManager.getCursorPosition().getY());
 			}
 		}, "mouseXMovement");
 
@@ -166,7 +166,7 @@ public class BerkeliumUpdater implements AppState {
 
 			@Override
 			public void onAnalog(String name, float value, float tpf) {
-				window.mouseMoved((int)inputManager.getCursorPosition().getX(), (int)inputManager.getCursorPosition().getY());
+				window.mouseMoved((int)inputManager.getCursorPosition().getX(), height-(int)inputManager.getCursorPosition().getY());
 			}
 		}, "mouseYMovement");
 
@@ -176,7 +176,15 @@ public class BerkeliumUpdater implements AppState {
 			public void onAnalog(String name, float value, float tpf) {
 				window.mouseWheel(0, (int)value);
 			}
-		}, "mouseWheelMovement");
+		}, "mouseWheelUpMovement");
+		
+		inputManager.addListener(new AnalogListener() {
+			
+			@Override
+			public void onAnalog(String name, float value, float tpf) {
+				window.mouseWheel(0, -1*(int)value);
+			}
+		}, "mouseWheelDownMovement");
 
 
 
