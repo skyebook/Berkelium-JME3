@@ -80,6 +80,7 @@ public class BerkeliumUpdater implements AppState {
 		imageAdaper.resize(width, height);
 		window.resize(width, height);
 		window.navigateTo("http://google.com");
+		//window.navigateTo("http://upload.wikimedia.org/wikipedia/commons/b/b5/I-15bis.ogg");
 
 		inputSetup();
 
@@ -440,15 +441,16 @@ public class BerkeliumUpdater implements AppState {
 	private class KeyListener implements ActionListener{
 
 		private int keyCode;
+		private String character;
 		private boolean isEligibleForTextEvent;
 
 		private KeyListener(int keyCode){
-			this.keyCode = convertKeyCode(keyCode);
+			isEligibleForTextEvent = isEligibleForTextEvent(keyCode);
 			
-			isEligibleForTextEvent = isEligibleForTextEvent();
+			this.keyCode = convertKeyCode(keyCode);
 		}
 
-		private boolean isEligibleForTextEvent(){
+		private boolean isEligibleForTextEvent(int keyCode){
 			return keyCode == KeyInput.KEY_0 ||
 					keyCode == KeyInput.KEY_1 ||
 					keyCode == KeyInput.KEY_2 ||
@@ -484,32 +486,44 @@ public class BerkeliumUpdater implements AppState {
 					keyCode == KeyInput.KEY_W ||
 					keyCode == KeyInput.KEY_X ||
 					keyCode == KeyInput.KEY_Y ||
-					keyCode == KeyInput.KEY_Z;
+					keyCode == KeyInput.KEY_Z ||
+					keyCode == KeyInput.KEY_SPACE;
 		}
 
 		private int convertKeyCode(int keyCode){
 			switch (keyCode) {
 			case KeyInput.KEY_0:
+				character="0";
 				return 30;
 			case KeyInput.KEY_1:
+				character="1";
 				return 31;
 			case KeyInput.KEY_2:
+				character="2";
 				return 32;
 			case KeyInput.KEY_3:
+				character="3";
 				return 33;
 			case KeyInput.KEY_4:
+				character="4";
 				return 34;
 			case KeyInput.KEY_5:
+				character="5";
 				return 35;
 			case KeyInput.KEY_6:
+				character="6";
 				return 36;
 			case KeyInput.KEY_7:
+				character="7";
 				return 37;
 			case KeyInput.KEY_8:
+				character="8";
 				return 38;
 			case KeyInput.KEY_9:
+				character="9";
 				return 39;
 			case KeyInput.KEY_A:
+				character="a";
 				return 41;
 			case KeyInput.KEY_ADD:
 				break;
@@ -522,12 +536,14 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_AX:
 				break;
 			case KeyInput.KEY_B:
+				character="b";
 				return 42;
 			case KeyInput.KEY_BACK:
-				break;
+				return 8;
 			case KeyInput.KEY_BACKSLASH:
 				break;
 			case KeyInput.KEY_C:
+				character="c";
 				return 43;
 			case KeyInput.KEY_CAPITAL:
 				break;
@@ -540,6 +556,7 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_CONVERT:
 				break;
 			case KeyInput.KEY_D:
+				character="d";
 				return 44;
 			case KeyInput.KEY_DECIMAL:
 				break;
@@ -550,6 +567,7 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_DOWN:
 				break;
 			case KeyInput.KEY_E:
+				character="e";
 				return 45;
 			case KeyInput.KEY_END:
 				break;
@@ -558,6 +576,7 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_ESCAPE:
 				break;
 			case KeyInput.KEY_F:
+				character="f";
 				return 46;
 			case KeyInput.KEY_F1:
 				break;
@@ -594,22 +613,27 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_GRAVE:
 				break;
 			case KeyInput.KEY_H:
+				character="h";
 				return 48;
 			case KeyInput.KEY_HOME:
 				break;
 			case KeyInput.KEY_I:
+				character="i";
 				return 49;
 			case KeyInput.KEY_INSERT:
 				break;
 			case KeyInput.KEY_J:
+				character="j";
 				return 0x4A;
 			case KeyInput.KEY_K:
+				character="k";
 				return 0x4B;
 			case KeyInput.KEY_KANA:
 				break;
 			case KeyInput.KEY_KANJI:
 				break;
 			case KeyInput.KEY_L:
+				character="l";
 				return 0x4C;
 			case KeyInput.KEY_LBRACKET:
 				break;
@@ -624,12 +648,14 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_LSHIFT:
 				break;
 			case KeyInput.KEY_M:
+				character="m";
 				return 0x4D;
 			case KeyInput.KEY_MINUS:
 				break;
 			case KeyInput.KEY_MULTIPLY:
 				break;
 			case KeyInput.KEY_N:
+				character="n";
 				return 0x4E;
 			case KeyInput.KEY_NOCONVERT:
 				break;
@@ -662,8 +688,10 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_NUMPADEQUALS:
 				break;
 			case KeyInput.KEY_O:
+				character="o";
 				return 0x4F;
 			case KeyInput.KEY_P:
+				character="p";
 				return 50;
 			case KeyInput.KEY_PAUSE:
 				break;
@@ -676,9 +704,11 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_POWER:
 				break;
 			case KeyInput.KEY_Q:
-				break;
+				character="q";
+				return 51;
 			case KeyInput.KEY_R:
-				break;
+				character="r";
+				return 52;
 			case KeyInput.KEY_RBRACKET:
 				break;
 			case KeyInput.KEY_RCONTROL:
@@ -694,7 +724,8 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_RSHIFT:
 				break;
 			case KeyInput.KEY_S:
-				break;
+				character="s";
+				return 53;
 			case KeyInput.KEY_SCROLL:
 				break;
 			case KeyInput.KEY_SEMICOLON:
@@ -704,7 +735,8 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_SLEEP:
 				break;
 			case KeyInput.KEY_SPACE:
-				break;
+				character=" ";
+				return 0;
 			case KeyInput.KEY_STOP:
 				break;
 			case KeyInput.KEY_SUBTRACT:
@@ -712,11 +744,13 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_SYSRQ:
 				break;
 			case KeyInput.KEY_T:
-				break;
+				character="t";
+				return 54;
 			case KeyInput.KEY_TAB:
 				break;
 			case KeyInput.KEY_U:
-				break;
+				character="u";
+				return 55;
 			case KeyInput.KEY_UNDERLINE:
 				break;
 			case KeyInput.KEY_UNLABELED:
@@ -724,17 +758,22 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_UP:
 				break;
 			case KeyInput.KEY_V:
-				break;
+				character="v";
+				return 56;
 			case KeyInput.KEY_W:
-				break;
+				character="w";
+				return 57;
 			case KeyInput.KEY_X:
-				break;
+				character="x";
+				return 58;
 			case KeyInput.KEY_Y:
-				break;
+				character="y";
+				return 59;
 			case KeyInput.KEY_YEN:
 				break;
 			case KeyInput.KEY_Z:
-				break;
+				character="z";
+				return 0x6a;
 			}
 			
 			return keyCode;
@@ -747,11 +786,14 @@ public class BerkeliumUpdater implements AppState {
 			System.out.println(name + (isPressed?" pressed":" released"));
 
 			if(isEligibleForTextEvent){
-				window.textEvent("lol");
+				System.out.println("do event");
+				window.textEvent(character);
 			}
 			else{
 				window.keyEvent(isPressed, 0, keyCode, 0);
 			}
+			
+			
 		}
 	}
 
