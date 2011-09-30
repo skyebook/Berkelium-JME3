@@ -4,11 +4,9 @@
 package net.skyebook.berkeliumjme3;
 
 import com.jme3.app.SimpleApplication;
-import com.jme3.input.KeyInput;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
-import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
 
@@ -39,6 +37,8 @@ public class IntegrationTest extends SimpleApplication {
 		Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		boxGeometry.setMaterial(mat);
 		rootNode.attachChild(boxGeometry);
+		
+		cam.lookAt(boxGeometry.getLocalTranslation(), Vector3f.UNIT_Y);
 		
 		flyCam.setEnabled(false);
 		
