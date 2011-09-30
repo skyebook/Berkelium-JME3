@@ -40,6 +40,8 @@ public class IntegrationTest extends SimpleApplication {
 		boxGeometry.setMaterial(mat);
 		rootNode.attachChild(boxGeometry);
 		
+		flyCam.setEnabled(false);
+		
 		berkeliumState = new BerkeliumUpdater(inputManager, 640, 480);
 		berkeliumState.addCallback(new BerkeliumInterfaceCallback() {
 			
