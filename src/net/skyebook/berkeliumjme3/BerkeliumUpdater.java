@@ -872,5 +872,7 @@ public class BerkeliumUpdater implements AppState {
 	public void cleanup() {
 		killTrigger=true;
 		thread.shutdown();
+		window.destroy();
+		berk.destroy();
 	}
 }
