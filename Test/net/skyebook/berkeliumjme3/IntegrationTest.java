@@ -9,6 +9,7 @@ import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
+import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
 
 /**
@@ -32,8 +33,9 @@ public class IntegrationTest extends SimpleApplication {
 	 */
 	@Override
 	public void simpleInitApp() {
-		Box box = new Box(new Vector3f(0, 0, 0), 4, 3, 4);
-		boxGeometry = new Geometry("box", box);
+		//Box shape = new Box(new Vector3f(0, 0, 0), 4, 3, 4);
+		Quad shape = new Quad(4, 3);
+		boxGeometry = new Geometry("shape", shape);
 		Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		boxGeometry.setMaterial(mat);
 		rootNode.attachChild(boxGeometry);
