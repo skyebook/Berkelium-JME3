@@ -16,7 +16,6 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.AnalogListener;
-import com.jme3.input.controls.InputListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
@@ -148,37 +147,37 @@ public class BerkeliumUpdater implements AppState {
 			}
 
 		}, "middleClick");
-		
+
 		inputManager.addMapping("mouseXMovement", new MouseAxisTrigger(MouseInput.AXIS_X, true));
 		inputManager.addMapping("mouseYMovement", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
 		inputManager.addMapping("mouseWheelMovement", new MouseAxisTrigger(MouseInput.AXIS_WHEEL, true));
-		
+
 		inputManager.addListener(new AnalogListener() {
-			
+
 			@Override
 			public void onAnalog(String name, float value, float tpf) {
 				window.mouseMoved((int)inputManager.getCursorPosition().getX(), (int)inputManager.getCursorPosition().getY());
 			}
 		}, "mouseXMovement");
-		
+
 		inputManager.addListener(new AnalogListener() {
-			
+
 			@Override
 			public void onAnalog(String name, float value, float tpf) {
 				window.mouseMoved((int)inputManager.getCursorPosition().getX(), (int)inputManager.getCursorPosition().getY());
 			}
 		}, "mouseYMovement");
-		
+
 		inputManager.addListener(new AnalogListener() {
-			
+
 			@Override
 			public void onAnalog(String name, float value, float tpf) {
 				window.mouseWheel(0, (int)value);
 			}
 		}, "mouseWheelMovement");
-		
-		
-		
+
+
+
 		/*============================== Keyboard Setup ==============================*/
 		inputManager.addMapping("KEY_0",				new KeyTrigger(KeyInput.KEY_0));
 		inputManager.addMapping("KEY_1",				new KeyTrigger(KeyInput.KEY_1));
@@ -305,7 +304,7 @@ public class BerkeliumUpdater implements AppState {
 		inputManager.addMapping("KEY_Y",				new KeyTrigger(KeyInput.KEY_Y));
 		inputManager.addMapping("KEY_YEN",				new KeyTrigger(KeyInput.KEY_YEN));
 		inputManager.addMapping("KEY_Z",				new KeyTrigger(KeyInput.KEY_Z));
-		
+
 		addListener("KEY_0",				KeyInput.KEY_0);
 		addListener("KEY_1",				KeyInput.KEY_1);
 		addListener("KEY_2",				KeyInput.KEY_2);
@@ -376,7 +375,6 @@ public class BerkeliumUpdater implements AppState {
 		addListener("KEY_M",				KeyInput.KEY_M);
 		addListener("KEY_MINUS",			KeyInput.KEY_MINUS);
 		addListener("KEY_MULTIPLY",			KeyInput.KEY_MULTIPLY);
-		addListener("KEY_M",				KeyInput.KEY_M);
 		addListener("KEY_N",				KeyInput.KEY_N);
 		addListener("KEY_NEXT",				KeyInput.KEY_NEXT);
 		addListener("KEY_NOCONVERT",		KeyInput.KEY_NOCONVERT);
@@ -432,29 +430,329 @@ public class BerkeliumUpdater implements AppState {
 		addListener("KEY_Y",				KeyInput.KEY_Y);
 		addListener("KEY_YEN",				KeyInput.KEY_YEN);
 		addListener("KEY_Z",				KeyInput.KEY_Z);
-		
+
 	}
-	
+
 	private void addListener(String mapping, int keyCode){
 		inputManager.addListener(new KeyListener(keyCode), mapping);
 	}
-	
+
 	private class KeyListener implements ActionListener{
-		
+
 		private int keyCode;
-		
+		private boolean isEligibleForTextEvent;
+
 		private KeyListener(int keyCode){
-			this.keyCode=keyCode;
+			this.keyCode = convertKeyCode(keyCode);
+			
+			isEligibleForTextEvent = isEligibleForTextEvent();
 		}
 
+		private boolean isEligibleForTextEvent(){
+			return keyCode == KeyInput.KEY_0 ||
+					keyCode == KeyInput.KEY_1 ||
+					keyCode == KeyInput.KEY_2 ||
+					keyCode == KeyInput.KEY_3 ||
+					keyCode == KeyInput.KEY_4 ||
+					keyCode == KeyInput.KEY_5 ||
+					keyCode == KeyInput.KEY_6 ||
+					keyCode == KeyInput.KEY_7 ||
+					keyCode == KeyInput.KEY_8 ||
+					keyCode == KeyInput.KEY_9 ||
+					keyCode == KeyInput.KEY_A ||
+					keyCode == KeyInput.KEY_B ||
+					keyCode == KeyInput.KEY_C ||
+					keyCode == KeyInput.KEY_D ||
+					keyCode == KeyInput.KEY_E ||
+					keyCode == KeyInput.KEY_F ||
+					keyCode == KeyInput.KEY_G ||
+					keyCode == KeyInput.KEY_H ||
+					keyCode == KeyInput.KEY_I ||
+					keyCode == KeyInput.KEY_J ||
+					keyCode == KeyInput.KEY_K ||
+					keyCode == KeyInput.KEY_L ||
+					keyCode == KeyInput.KEY_M ||
+					keyCode == KeyInput.KEY_N ||
+					keyCode == KeyInput.KEY_O ||
+					keyCode == KeyInput.KEY_P ||
+					keyCode == KeyInput.KEY_Q ||
+					keyCode == KeyInput.KEY_R ||
+					keyCode == KeyInput.KEY_S ||
+					keyCode == KeyInput.KEY_T ||
+					keyCode == KeyInput.KEY_U ||
+					keyCode == KeyInput.KEY_V ||
+					keyCode == KeyInput.KEY_W ||
+					keyCode == KeyInput.KEY_X ||
+					keyCode == KeyInput.KEY_Y ||
+					keyCode == KeyInput.KEY_Z;
+		}
+
+		private int convertKeyCode(int keyCode){
+			switch (keyCode) {
+			case KeyInput.KEY_0:
+				return 30;
+			case KeyInput.KEY_1:
+				return 31;
+			case KeyInput.KEY_2:
+				return 32;
+			case KeyInput.KEY_3:
+				return 33;
+			case KeyInput.KEY_4:
+				return 34;
+			case KeyInput.KEY_5:
+				return 35;
+			case KeyInput.KEY_6:
+				return 36;
+			case KeyInput.KEY_7:
+				return 37;
+			case KeyInput.KEY_8:
+				return 38;
+			case KeyInput.KEY_9:
+				return 39;
+			case KeyInput.KEY_A:
+				return 41;
+			case KeyInput.KEY_ADD:
+				break;
+			case KeyInput.KEY_APOSTROPHE:
+				break;
+			case KeyInput.KEY_APPS:
+				break;
+			case KeyInput.KEY_AT:
+				break;
+			case KeyInput.KEY_AX:
+				break;
+			case KeyInput.KEY_B:
+				return 42;
+			case KeyInput.KEY_BACK:
+				break;
+			case KeyInput.KEY_BACKSLASH:
+				break;
+			case KeyInput.KEY_C:
+				return 43;
+			case KeyInput.KEY_CAPITAL:
+				break;
+			case KeyInput.KEY_CIRCUMFLEX:
+				break;
+			case KeyInput.KEY_COLON:
+				break;
+			case KeyInput.KEY_COMMA:
+				break;
+			case KeyInput.KEY_CONVERT:
+				break;
+			case KeyInput.KEY_D:
+				return 44;
+			case KeyInput.KEY_DECIMAL:
+				break;
+			case KeyInput.KEY_DELETE:
+				break;
+			case KeyInput.KEY_DIVIDE:
+				break;
+			case KeyInput.KEY_DOWN:
+				break;
+			case KeyInput.KEY_E:
+				return 45;
+			case KeyInput.KEY_END:
+				break;
+			case KeyInput.KEY_EQUALS:
+				break;
+			case KeyInput.KEY_ESCAPE:
+				break;
+			case KeyInput.KEY_F:
+				return 46;
+			case KeyInput.KEY_F1:
+				break;
+			case KeyInput.KEY_F2:
+				break;
+			case KeyInput.KEY_F3:
+				break;
+			case KeyInput.KEY_F4:
+				break;
+			case KeyInput.KEY_F5:
+				break;
+			case KeyInput.KEY_F6:
+				break;
+			case KeyInput.KEY_F7:
+				break;
+			case KeyInput.KEY_F8:
+				break;
+			case KeyInput.KEY_F9:
+				break;
+			case KeyInput.KEY_F10:
+				break;
+			case KeyInput.KEY_F11:
+				break;
+			case KeyInput.KEY_F12:
+				break;
+			case KeyInput.KEY_F13:
+				break;
+			case KeyInput.KEY_F14:
+				break;
+			case KeyInput.KEY_F15:
+				break;
+			case KeyInput.KEY_G:
+				return 47;
+			case KeyInput.KEY_GRAVE:
+				break;
+			case KeyInput.KEY_H:
+				return 48;
+			case KeyInput.KEY_HOME:
+				break;
+			case KeyInput.KEY_I:
+				return 49;
+			case KeyInput.KEY_INSERT:
+				break;
+			case KeyInput.KEY_J:
+				return 0x4A;
+			case KeyInput.KEY_K:
+				return 0x4B;
+			case KeyInput.KEY_KANA:
+				break;
+			case KeyInput.KEY_KANJI:
+				break;
+			case KeyInput.KEY_L:
+				return 0x4C;
+			case KeyInput.KEY_LBRACKET:
+				break;
+			case KeyInput.KEY_LCONTROL:
+				break;
+			case KeyInput.KEY_LEFT:
+				break;
+			case KeyInput.KEY_LMENU:
+				break;
+			case KeyInput.KEY_LMETA:
+				break;
+			case KeyInput.KEY_LSHIFT:
+				break;
+			case KeyInput.KEY_M:
+				return 0x4D;
+			case KeyInput.KEY_MINUS:
+				break;
+			case KeyInput.KEY_MULTIPLY:
+				break;
+			case KeyInput.KEY_N:
+				return 0x4E;
+			case KeyInput.KEY_NOCONVERT:
+				break;
+			case KeyInput.KEY_NUMLOCK:
+				break;
+			case KeyInput.KEY_NUMPAD0:
+				break;
+			case KeyInput.KEY_NUMPAD1:
+				break;
+			case KeyInput.KEY_NUMPAD2:
+				break;
+			case KeyInput.KEY_NUMPAD3:
+				break;
+			case KeyInput.KEY_NUMPAD4:
+				break;
+			case KeyInput.KEY_NUMPAD5:
+				break;
+			case KeyInput.KEY_NUMPAD6:
+				break;
+			case KeyInput.KEY_NUMPAD7:
+				break;
+			case KeyInput.KEY_NUMPAD8:
+				break;
+			case KeyInput.KEY_NUMPAD9:
+				break;
+			case KeyInput.KEY_NUMPADCOMMA:
+				break;
+			case KeyInput.KEY_NUMPADENTER:
+				break;
+			case KeyInput.KEY_NUMPADEQUALS:
+				break;
+			case KeyInput.KEY_O:
+				return 0x4F;
+			case KeyInput.KEY_P:
+				return 50;
+			case KeyInput.KEY_PAUSE:
+				break;
+			case KeyInput.KEY_PERIOD:
+				break;
+			case KeyInput.KEY_PGDN:
+				break;
+			case KeyInput.KEY_PGUP:
+				break;
+			case KeyInput.KEY_POWER:
+				break;
+			case KeyInput.KEY_Q:
+				break;
+			case KeyInput.KEY_R:
+				break;
+			case KeyInput.KEY_RBRACKET:
+				break;
+			case KeyInput.KEY_RCONTROL:
+				break;
+			case KeyInput.KEY_RETURN:
+				break;
+			case KeyInput.KEY_RIGHT:
+				break;
+			case KeyInput.KEY_RMENU:
+				break;
+			case KeyInput.KEY_RMETA:
+				break;
+			case KeyInput.KEY_RSHIFT:
+				break;
+			case KeyInput.KEY_S:
+				break;
+			case KeyInput.KEY_SCROLL:
+				break;
+			case KeyInput.KEY_SEMICOLON:
+				break;
+			case KeyInput.KEY_SLASH:
+				break;
+			case KeyInput.KEY_SLEEP:
+				break;
+			case KeyInput.KEY_SPACE:
+				break;
+			case KeyInput.KEY_STOP:
+				break;
+			case KeyInput.KEY_SUBTRACT:
+				break;
+			case KeyInput.KEY_SYSRQ:
+				break;
+			case KeyInput.KEY_T:
+				break;
+			case KeyInput.KEY_TAB:
+				break;
+			case KeyInput.KEY_U:
+				break;
+			case KeyInput.KEY_UNDERLINE:
+				break;
+			case KeyInput.KEY_UNLABELED:
+				break;
+			case KeyInput.KEY_UP:
+				break;
+			case KeyInput.KEY_V:
+				break;
+			case KeyInput.KEY_W:
+				break;
+			case KeyInput.KEY_X:
+				break;
+			case KeyInput.KEY_Y:
+				break;
+			case KeyInput.KEY_YEN:
+				break;
+			case KeyInput.KEY_Z:
+				break;
+			}
+			
+			return keyCode;
+		}
 		/* (non-Javadoc)
 		 * @see com.jme3.input.controls.ActionListener#onAction(java.lang.String, boolean, float)
 		 */
 		@Override
 		public void onAction(String name, boolean isPressed, float tpf) {
-			window.keyEvent(isPressed, 0, keyCode, 0);
+			System.out.println(name + (isPressed?" pressed":" released"));
+
+			if(isEligibleForTextEvent){
+				window.textEvent("lol");
+			}
+			else{
+				window.keyEvent(isPressed, 0, keyCode, 0);
+			}
 		}
-		
 	}
 
 	/* (non-Javadoc)
