@@ -17,6 +17,7 @@
  */
 package net.skyebook.berkeliumjme3;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -115,7 +116,7 @@ public class BerkeliumUpdater implements AppState {
 		window.setDelegate(imageAdaper);
 		imageAdaper.resize(width, height);
 		window.resize(width, height);
-		window.navigateTo("http://google.com");
+		window.navigateTo("res/js-test.html");
 		//window.navigateTo("http://upload.wikimedia.org/wikipedia/commons/b/b5/I-15bis.ogg");
 
 		inputSetup();
