@@ -11,6 +11,7 @@ import org.berkelium.java.Window;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppState;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.collision.CollisionResults;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
@@ -19,7 +20,11 @@ import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
+import com.jme3.math.Ray;
+import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
+import com.jme3.scene.Geometry;
 import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
@@ -51,14 +56,28 @@ public class BerkeliumUpdater implements AppState {
 	private ExecutorService thread = Executors.newFixedThreadPool(1);
 
 	private InputManager inputManager;
+	
+	private Camera camera;
+	private BerkeliumSurface surface;
+	private Geometry geometry;
+	
+	private Ray camRay;
+	private CollisionResults collisionResults;
 
 	/**
 	 * 
 	 */
-	public BerkeliumUpdater(InputManager inputManager, int width, int height) {
+	public BerkeliumUpdater(InputManager inputManager, int width, int height, BerkeliumSurface surface, Geometry geometry, Camera camera) {
 		this.inputManager = inputManager;
 		this.width = width;
 		this.height = height;
+		this.surface=surface;
+		this.camera=camera;
+		this.geometry=geometry;
+		
+		camRay = new Ray(camera.getLocation(), camera.getDirection());
+		collisionResults = new CollisionResults();
+		
 		callbacks = new ArrayList<BerkeliumInterfaceCallback>();
 		loader = new AWTLoader();
 	}
@@ -158,7 +177,12 @@ public class BerkeliumUpdater implements AppState {
 
 			@Override
 			public void onAnalog(String name, float value, float tpf) {
-				window.mouseMoved((int)inputManager.getCursorPosition().getX(), height-(int)inputManager.getCursorPosition().getY());
+				//window.mouseMoved((int)inputManager.getCursorPosition().getX(), height-(int)inputManager.getCursorPosition().getY());
+				Vector3f poc = doRayCasting();
+				if(poc!=null){
+					int[] xy = calculateSurfaceXY(poc);
+					window.mouseMoved(xy[0], xy[1]);
+				}
 			}
 		}, "mouseXMovement");
 
@@ -166,7 +190,12 @@ public class BerkeliumUpdater implements AppState {
 
 			@Override
 			public void onAnalog(String name, float value, float tpf) {
-				window.mouseMoved((int)inputManager.getCursorPosition().getX(), height-(int)inputManager.getCursorPosition().getY());
+				//window.mouseMoved((int)inputManager.getCursorPosition().getX(), height-(int)inputManager.getCursorPosition().getY());
+				Vector3f poc = doRayCasting();
+				if(poc!=null){
+					int[] xy = calculateSurfaceXY(poc);
+					window.mouseMoved(xy[0], xy[1]);
+				}
 			}
 		}, "mouseYMovement");
 
@@ -861,7 +890,6 @@ public class BerkeliumUpdater implements AppState {
 	 */
 	@Override
 	public boolean isInitialized() {
-		// TODO Auto-generated method stub
 		return initialized;
 	}
 
@@ -905,8 +933,61 @@ public class BerkeliumUpdater implements AppState {
 		berk.update();
 
 		targetTexture.setImage(jmeImage);
+		
+		// do ray casting
+		doRayCasting();
 	}
-
+	
+	private Vector3f doRayCasting(){
+		Vector3f origin = camera.getWorldCoordinates(inputManager.getCursorPosition(), 0.0f);
+        Vector3f direction = camera.getWorldCoordinates(inputManager.getCursorPosition(), 0.3f);
+        direction.subtractLocal(origin).normalizeLocal();
+		camRay.setOrigin(origin);
+		camRay.setDirection(direction);
+		
+		collisionResults.clear();
+		geometry.collideWith(camRay, collisionResults);
+		if(collisionResults.size()>0){
+			Vector3f pointOfContact = collisionResults.getCollision(0).getContactPoint();
+			//if(isWithinSurface(pointOfContact)){
+				//System.out.println("Contact!");
+				return pointOfContact;
+			//}
+		}
+		return null;
+	}
+	
+	private boolean isWithinSurface(Vector3f toTest){
+		if(toTest==null) System.out.println("WHAT?");
+		return (toTest.x>=surface.getLowerLeft().x && toTest.x<=surface.getLowerRight().x
+				&& toTest.y>=surface.getLowerRight().y && toTest.y<=surface.getUpperRight().y);
+	}
+	
+	private int[] calculateSurfaceXY(Vector3f pointOfContact){
+		// calculate the size of the object in terms of OpenGL.  This presumes a rectangular object
+		float glDiffX = surface.getLowerRight().x - surface.getLowerLeft().x;
+		float glDiffY = surface.getUpperRight().y - surface.getLowerRight().y;
+		
+		System.out.println("Diff XY: " + glDiffX + ", " + glDiffY);
+		
+		float pixelSizeX = glDiffX/(float)width;
+		float pixelSizeY = glDiffY/(float)height;
+		
+		System.out.println("Pixel Size XY: " + pixelSizeX + ", " + pixelSizeY);
+		
+		float locX = pointOfContact.x-geometry.getLocalTranslation().x;//-surface.getLowerLeft().x;
+		float locY = pointOfContact.y-geometry.getLocalTranslation().y;//-surface.getLowerLeft().y);
+		
+		System.out.println("X: " + locX +" Y: " + locY);
+		
+		int surfaceX = (int)(locX/pixelSizeX);
+		int surfaceY = height - ((int)(locY/pixelSizeY));
+		
+		System.out.println("Surface XY: " + surfaceX +" Y: " + surfaceY);
+		
+		return new int[]{surfaceX, surfaceY};
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.jme3.app.state.AppState#render(com.jme3.renderer.RenderManager)
 	 */

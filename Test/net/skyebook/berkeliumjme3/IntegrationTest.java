@@ -32,8 +32,9 @@ public class IntegrationTest extends SimpleApplication {
 	@Override
 	public void simpleInitApp() {
 		//Box shape = new Box(new Vector3f(0, 0, 0), 4, 3, 4);
-		Quad shape = new Quad(4, 3);
+		BerkeliumQuad shape = new BerkeliumQuad(4, 3);
 		boxGeometry = new Geometry("shape", shape);
+		boxGeometry.setLocalTranslation(-.5f, .5f, 5);
 		Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		boxGeometry.setMaterial(mat);
 		rootNode.attachChild(boxGeometry);
@@ -42,7 +43,7 @@ public class IntegrationTest extends SimpleApplication {
 		
 		flyCam.setEnabled(false);
 		
-		berkeliumState = new BerkeliumUpdater(inputManager, 640, 480);
+		berkeliumState = new BerkeliumUpdater(inputManager, 640, 480, shape, boxGeometry, cam);
 		berkeliumState.addCallback(new BerkeliumInterfaceCallback() {
 			
 			@Override
