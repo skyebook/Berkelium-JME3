@@ -470,6 +470,16 @@ public class BerkeliumUpdater implements AppState {
 					keyCode == KeyInput.KEY_7 ||
 					keyCode == KeyInput.KEY_8 ||
 					keyCode == KeyInput.KEY_9 ||
+					keyCode == KeyInput.KEY_NUMPAD0 ||
+					keyCode == KeyInput.KEY_NUMPAD1 ||
+					keyCode == KeyInput.KEY_NUMPAD2 ||
+					keyCode == KeyInput.KEY_NUMPAD3 ||
+					keyCode == KeyInput.KEY_NUMPAD4 ||
+					keyCode == KeyInput.KEY_NUMPAD5 ||
+					keyCode == KeyInput.KEY_NUMPAD6 ||
+					keyCode == KeyInput.KEY_NUMPAD7 ||
+					keyCode == KeyInput.KEY_NUMPAD8 ||
+					keyCode == KeyInput.KEY_NUMPAD9 ||
 					keyCode == KeyInput.KEY_A ||
 					keyCode == KeyInput.KEY_B ||
 					keyCode == KeyInput.KEY_C ||
@@ -497,7 +507,17 @@ public class BerkeliumUpdater implements AppState {
 					keyCode == KeyInput.KEY_Y ||
 					keyCode == KeyInput.KEY_Z ||
 					keyCode == KeyInput.KEY_SPACE ||
+					keyCode == KeyInput.KEY_BACKSLASH ||
+					keyCode == KeyInput.KEY_COMMA ||
+					keyCode == KeyInput.KEY_DECIMAL ||
 					keyCode == KeyInput.KEY_PERIOD ||
+					keyCode == KeyInput.KEY_DIVIDE ||
+					keyCode == KeyInput.KEY_EQUALS ||
+					keyCode == KeyInput.KEY_GRAVE ||
+					keyCode == KeyInput.KEY_MINUS ||
+					keyCode == KeyInput.KEY_MULTIPLY ||
+					keyCode == KeyInput.KEY_SEMICOLON ||
+					keyCode == KeyInput.KEY_SLASH ||
 					keyCode == KeyInput.KEY_LBRACKET ||
 					keyCode == KeyInput.KEY_RBRACKET ||
 					keyCode == KeyInput.KEY_APOSTROPHE;
@@ -539,7 +559,7 @@ public class BerkeliumUpdater implements AppState {
 				character="a";
 				return 41;
 			case KeyInput.KEY_ADD:
-				break;
+				return 0x6B;
 			case KeyInput.KEY_APOSTROPHE:
 				character="'";
 				return 0xDE;
@@ -561,35 +581,39 @@ public class BerkeliumUpdater implements AppState {
 				character="c";
 				return 43;
 			case KeyInput.KEY_CAPITAL:
-				break;
+				return 14;
 			case KeyInput.KEY_CIRCUMFLEX:
 				break;
 			case KeyInput.KEY_COLON:
 				break;
 			case KeyInput.KEY_COMMA:
-				break;
+				character = ",";
+				return 0xBC;
 			case KeyInput.KEY_CONVERT:
 				break;
 			case KeyInput.KEY_D:
 				character="d";
 				return 44;
 			case KeyInput.KEY_DECIMAL:
-				break;
+				character = ".";
+				return 0x6E;
 			case KeyInput.KEY_DELETE:
-				break;
+				return 0x2E;
 			case KeyInput.KEY_DIVIDE:
-				break;
+				character="/";
+				return 0x6F;
 			case KeyInput.KEY_DOWN:
 				return 28;
 			case KeyInput.KEY_E:
 				character="e";
 				return 45;
 			case KeyInput.KEY_END:
-				break;
+				return 23;
 			case KeyInput.KEY_EQUALS:
-				break;
+				character="=";
+				return 0xBB;
 			case KeyInput.KEY_ESCAPE:
-				break;
+				return 0x1B;
 			case KeyInput.KEY_F:
 				character="f";
 				return 46;
@@ -627,17 +651,18 @@ public class BerkeliumUpdater implements AppState {
 				character="g";
 				return 47;
 			case KeyInput.KEY_GRAVE:
-				break;
+				character="`";
+				return 0xC0;
 			case KeyInput.KEY_H:
 				character="h";
 				return 48;
 			case KeyInput.KEY_HOME:
-				break;
+				return 24;
 			case KeyInput.KEY_I:
 				character="i";
 				return 49;
 			case KeyInput.KEY_INSERT:
-				break;
+				return 0x2D;
 			case KeyInput.KEY_J:
 				character="j";
 				return 0x4A;
@@ -661,16 +686,18 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_LMENU:
 				return 0xA4;
 			case KeyInput.KEY_LMETA:
-				break;
+				return 0x5B;
 			case KeyInput.KEY_LSHIFT:
 				return 0xA0;
 			case KeyInput.KEY_M:
 				character="m";
 				return 0x4D;
 			case KeyInput.KEY_MINUS:
-				break;
+				character="-";
+				return 0xBD;
 			case KeyInput.KEY_MULTIPLY:
-				break;
+				character="*";
+				return 0x6A;
 			case KeyInput.KEY_N:
 				character="n";
 				return 0x4E;
@@ -679,31 +706,42 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_NUMLOCK:
 				return 90;
 			case KeyInput.KEY_NUMPAD0:
-				break;
+				character="0";
+				return 60;
 			case KeyInput.KEY_NUMPAD1:
-				break;
+				character="1";
+				return 61;
 			case KeyInput.KEY_NUMPAD2:
-				break;
+				character="2";
+				return 62;
 			case KeyInput.KEY_NUMPAD3:
-				break;
+				character="3";
+				return 63;
 			case KeyInput.KEY_NUMPAD4:
-				break;
+				character="4";
+				return 64;
 			case KeyInput.KEY_NUMPAD5:
-				break;
+				character="5";
+				return 65;
 			case KeyInput.KEY_NUMPAD6:
-				break;
+				character="6";
+				return 66;
 			case KeyInput.KEY_NUMPAD7:
-				break;
+				character="7";
+				return 67;
 			case KeyInput.KEY_NUMPAD8:
-				break;
+				character="8";
+				return 68;
 			case KeyInput.KEY_NUMPAD9:
-				break;
+				character="9";
+				return 69;
 			case KeyInput.KEY_NUMPADCOMMA:
 				break;
 			case KeyInput.KEY_NUMPADENTER:
-				break;
+				return 0x0D;
 			case KeyInput.KEY_NUMPADEQUALS:
-				break;
+				character="=";
+				return 0xBB;
 			case KeyInput.KEY_O:
 				character="o";
 				return 0x4F;
@@ -716,9 +754,9 @@ public class BerkeliumUpdater implements AppState {
 				character=".";
 				return 0xBE;
 			case KeyInput.KEY_PGDN:
-				break;
+				return 22;
 			case KeyInput.KEY_PGUP:
-				break;
+				return 21;
 			case KeyInput.KEY_POWER:
 				break;
 			case KeyInput.KEY_Q:
@@ -739,7 +777,7 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_RMENU:
 				return 0xA5;
 			case KeyInput.KEY_RMETA:
-				break;
+				return 0x5C;
 			case KeyInput.KEY_RSHIFT:
 				return 0xA1;
 			case KeyInput.KEY_S:
@@ -748,20 +786,23 @@ public class BerkeliumUpdater implements AppState {
 			case KeyInput.KEY_SCROLL:
 				return 91;
 			case KeyInput.KEY_SEMICOLON:
-				break;
+				character=";";
+				return 0xBA;
 			case KeyInput.KEY_SLASH:
-				break;
+				character="/";
+				return 0xBF;
 			case KeyInput.KEY_SLEEP:
 				break;
 			case KeyInput.KEY_SPACE:
 				character=" ";
-				return 0;
+				return 20;
 			case KeyInput.KEY_STOP:
 				break;
 			case KeyInput.KEY_SUBTRACT:
-				break;
+				character="-";
+				return 0x6D;
 			case KeyInput.KEY_SYSRQ:
-				break;
+				return 0x2C;
 			case KeyInput.KEY_T:
 				character="t";
 				return 54;
